@@ -4,6 +4,12 @@
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
+                 ;; for handler
+                 [ring/ring-jetty-adapter "1.7.1"]
+                 [metosin/reitit "0.3.10"]
+                 [ring-cors "0.1.13"]
+                 [ring-logger "1.0.1"]
+                 [com.fasterxml.jackson.core/jackson-core "2.10.0"] ;; required!!!
                  ;; for security
                  [buddy/buddy-hashers "1.4.0"]
                  ;; for json
@@ -25,11 +31,6 @@
                  ;; ;; for migration
                  ;; [ragtime "0.8.0"]
 
-                 ;; for handler
-                 [metosin/reitit "0.3.10"]
-                 [ring-cors "0.1.13"]
-                 [ring-logger "1.0.1"]
-                 [com.fasterxml.jackson.core/jackson-core "2.10.1"] ;; required!!!
                  ;; for others
                  [camel-snake-kebab "0.4.0"]]
   :main ^:skip-aot task-cabinet-server.core

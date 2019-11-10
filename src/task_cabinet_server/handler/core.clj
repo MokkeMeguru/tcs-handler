@@ -58,34 +58,35 @@
                                       (io/resource)
                                       (io/input-stream))})}}]]
 
-       ["/math"
-        {:swagger {:tags ["math"]}}
-        ["/plus"
-         {:get {:summary "plus with spec query parameters"
-                :parameters {:query {:x int?, :y int?}}
-                :responses {200 {:body {:total int?}}}
-                :handler (fn [{{{:keys [x y]} :query} :parameters}]
-                           {:status 200
-                            :body {:total (+ x y)}})}
-          :post {:summary "plus with spec body parameters"
-                 :parameters {:body {:x int?, :y int?}}
-                 :responses {200 {:body {:total int?}}}
-                 :handler (fn [{{{:keys [x y]} :body} :parameters}]
-                            {:status 200
-                             :body {:total (+ x y)}})}}]
-        ["/minus"
-         {:get {:summary "plus with spec query parameters"
-                :parameters {:query {:x int?, :y int?}}
-                :responses {200 {:body {:total int?}}}
-                :handler (fn [{{{:keys [x y]} :query} :parameters}]
-                           {:status 200
-                            :body {:total (- x y)}})}
-          :post {:summary "plus with spec body parameters"
-                 :parameters {:body {:x int?, :y int?}}
-                 :responses {200 {:body {:total int?}}}
-                 :handler (fn [{{{:keys [x y]} :body} :parameters}]
-                            {:status 200
-                             :body {:total (- x y)}})}}]]]
+       ;; ["/math"
+       ;;  {:swagger {:tags ["math"]}}
+       ;;  ["/plus"
+       ;;   {:get {:summary "plus with spec query parameters"
+       ;;          :parameters {:query {:x int?, :y int?}}
+       ;;          :responses {200 {:body {:total int?}}}
+       ;;          :handler (fn [{{{:keys [x y]} :query} :parameters}]
+       ;;                     {:status 200
+       ;;                      :body {:total (+ x y)}})}
+       ;;    :post {:summary "plus with spec body parameters"
+       ;;           :parameters {:body {:x int?, :y int?}}
+       ;;           :responses {200 {:body {:total int?}}}
+       ;;           :handler (fn [{{{:keys [x y]} :body} :parameters}]
+       ;;                      {:status 200
+       ;;                       :body {:total (+ x y)}})}}]
+       ;;  ["/minus"
+       ;;   {:get {:summary "plus with spec query parameters"
+       ;;          :parameters {:query {:x int?, :y int?}}
+       ;;          :responses {200 {:body {:total int?}}}
+       ;;          :handler (fn [{{{:keys [x y]} :query} :parameters}]
+       ;;                     {:status 200
+       ;;                      :body {:total (- x y)}})}
+       ;;    :post {:summary "plus with spec body parameters"
+       ;;           :parameters {:body {:x int?, :y int?}}
+       ;;           :responses {200 {:body {:total int?}}}
+       ;;           :handler (fn [{{{:keys [x y]} :body} :parameters}]
+       ;;                      {:status 200
+       ;;                       :body {:total (- x y)}})}}]]
+       ]
 
       {;;:reitit.middleware/transform dev/print-request-diffs ;; pretty diffs
        ;;:validate spec/validate ;; enable spec validation for route data

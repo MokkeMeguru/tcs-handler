@@ -24,7 +24,8 @@
    [taoensso.timbre :as timbre]
 
    [task-cabinet-server.handler.users :refer [users-app]]
-   [task-cabinet-server.handler.user-device :refer [user-device-app]]))
+   [task-cabinet-server.handler.user-device :refer [user-device-app]]
+   [task-cabinet-server.handler.task :refer [task-app]]))
 
 
 (defn root-app [env]
@@ -34,12 +35,13 @@
         {:get {:no-doc true
                :swagger {
                          :securityDefinitions {:ApiKeyAuth {:type "apiKey" :name "Authorization" :in "header"}}
-                         :info {:title "my-api"
+                         :info {:title "task-cabinet-server REST API"
                                 :version "0.0.1-dev"
-                                :description "with reitit-ring"}}
+                                :description "with reitit-ring, endpoint only"}}
                :handler (swagger/create-swagger-handler)}}]
        (users-app env)
        (user-device-app env)
+       (task-app env)
        ["/files"
         {:swagger {:tags ["files"]}}
         ["/upload"

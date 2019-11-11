@@ -69,7 +69,7 @@
         {:status 403})))})
 
 (defn user-device-app [env]
-  ["/tcs/user/:user-id"
+  ["/tcs/users/:user-id"
    {:swagger {:tags ["device"]}}
    ["/device"
     {:post add-device

@@ -22,6 +22,7 @@ example:
 ## Usage
 
 ```
+docker-compose build
 docker-compose run --service-port repl
 lein repl
 (start)

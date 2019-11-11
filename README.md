@@ -27,7 +27,7 @@ docker-compose run --service-port repl
 lein repl
 (start)
 ```
-accessing http://localhost:3000/swagger-ui, You can see swagger view. Call any endpoint according to its description.
+accessing http://localhost:3000, You can see swagger view. Call any endpoint according to its description.
 
 ## Options
 

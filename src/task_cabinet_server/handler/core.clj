@@ -23,7 +23,8 @@
    [clojure.java.io :as io]
    [taoensso.timbre :as timbre]
 
-   [task-cabinet-server.handler.users :refer [users-app]]))
+   [task-cabinet-server.handler.users :refer [users-app]]
+   [task-cabinet-server.handler.user-device :refer [user-device-app]]))
 
 
 (defn root-app [env]
@@ -38,6 +39,7 @@
                                 :description "with reitit-ring"}}
                :handler (swagger/create-swagger-handler)}}]
        (users-app env)
+       (user-device-app env)
        ["/files"
         {:swagger {:tags ["files"]}}
         ["/upload"

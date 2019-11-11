@@ -35,3 +35,22 @@
      :patch (fn [] {:status 200})}]
    ["/task/:id/complete"
     {:put (fn [] {:status 200})}]])
+
+
+
+
+
+;; (def dataset [6 12 18 30 42 48])
+;; ;;; 6 48
+;; (def first-clust [[6 12 18 24] [30 42 48]])
+;; (def first-clust-mean (map #(/ (apply + %) (count %)) first-clust)) ;; 15 40
+;; (def second-clust [[6 12 18 24] [30 42 48]])
+;; (def second-clust-mean (map #(/ (apply + %) (count %)) second-clust)) ;; 15 40
+;; ;; end
+
+;; ;; 42 48
+;; (def first-clust [[6 12 18 30 42] [48]])
+;; (def first-clust-mean (map #(/ (apply + %) (count %)) first-clust)) ;; 108/5 48
+;; (map #(- dataset %) first-clust-mean)
+
+;; (- [1 2 3 4] 1)

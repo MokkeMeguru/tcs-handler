@@ -1,13 +1,19 @@
-# task-cabinet-server
+* task-cabinet-server
+** Processing
+- [X] authorization system
+- [X] user system
+- [X] task system
+- [ ] implement service (logic) => ref.  https://github.com/MokkeMeguru/tcs-service
+- [ ] connect to database
 
-
-## Installation
+** Installation
 ref. https://github.com/MokkeMeguru/tcs-notification
 
 Copy `profiles.clj` from the above repository.
 
 example:
-```
+
+#+begin_src clojure 
 {:dev {:env {
              :database-url "jdbc:postgresql://localhost/dev"
              :clj-env "dev"
@@ -18,36 +24,31 @@ example:
               :clj-env "test"
               :vapid-pub "<vapid-pub-key>"
               :vapid-private "<vapid-client-key>"}}}
-```
-## Usage
+#+end_src
 
-```
+** Usage
+
+#+begin_src shell
 docker-compose build
 docker-compose run --service-port repl
 lein repl
 (start)
-```
+#+end_src
+
 accessing http://localhost:3000, You can see swagger view. Call any endpoint according to its description.
 
-## Options
+** Options
 
-FIXME: listing of options this app accepts.
 
-## Examples
+** Bugs
 
-...
 
-### Bugs
+** That You Think
 
-...
 
-### Any Other Sections
-### That You Think
-### Might be Useful
+** License
 
-## License
-
-Copyright © 2019 FIXME
+Copyright © 2019 MokkeMeguru
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

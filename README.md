@@ -1,16 +1,32 @@
 # task-cabinet-server
 
-FIXME: description
 
 ## Installation
+ref. https://github.com/MokkeMeguru/tcs-notification
 
-Download from http://example.com/FIXME.
+Copy `profiles.clj` from the above repository.
 
+example:
+```
+{:dev {:env {
+             :database-url "jdbc:postgresql://localhost/dev"
+             :clj-env "dev"
+             :vapid-pub "<vapid-pub-key>"
+             :vapid-private "<vapid-client-key>"}}
+ :test {:env {
+              :database-url "jdbc:postgresql://localhost/dev"
+              :clj-env "test"
+              :vapid-pub "<vapid-pub-key>"
+              :vapid-private "<vapid-client-key>"}}}
+```
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar task-cabinet-server-0.1.0-standalone.jar [args]
+```
+docker-compose run --service-port repl
+lein repl
+(start)
+```
+accessing http://localhost:3000/swagger-ui, You can see swagger view. Call any endpoint according to its description.
 
 ## Options
 

@@ -18,8 +18,9 @@
 (s/def ::updated_at int?)
 (s/def ::finished_at int?)
 (s/def ::all boolean?)
-(s/def ::abst-task (s/keys :req-un [::name ::deadline ::estimate ::created_at]
-                      :opt-un [::finished_at ::category]))
+(s/def ::abst-task
+  (s/keys :req-un [::id ::name ::deadline ::estimate ::created_at]
+          :opt-un [::finished_at ::category]))
 (s/def ::create-task-params
   (s/keys :req-un [::name ::deadline ::estimate]
           :opt-un [::description ::category]))
@@ -35,10 +36,36 @@
 (s/def ::task-update-response
   (s/keys ::req-un [::name ::deadline ::estimate ::created_at ::updated_at]
           :opt-un [::description ::category  ::finished_at]))
-(s/def ::get-task-list-params
-  (s/keys ::req-un [::all]))
 (s/def ::get-task-list-response
-  (s/map-of ::id ::abst-task))
+  (s/* ::abst-task))
+
+(def tmp-task-list
+  [{:id 1
+    :name "Implement Server"
+    :deadline 1573493099290
+    :estimate 40
+    :created_at 1572566411400}
+   {:id 2
+    :name "Implement WebPush"
+    :deadline 1572567452000
+    :estimate 80
+    :created_at 1572566431400
+    :finished_at 1572567432000
+    :category "server"}
+   {:id 3
+    :name "Implement Authorization"
+    :deadline 1572566451400
+    :estimate 60
+    :created_at 1572566441400
+    :category "server"}
+   {:id 4
+    :name "Re: check database structure"
+    :deadline 1572566952000
+    :estimate 100
+    :created_at 1572566411500
+    :finished_at 1572567431000}])
+;; (s/explain ::get-task-list-response tmp-task-list)
+
 
 (def create-task
   {:summary "create a task"
@@ -80,14 +107,8 @@
        (if (and (= id 1) (= user-id 1) (= authorization "gXqi4mnXg8KyuSKS5XlK"))
         {:status 201
           :body
-          {:result
-           {:name "Implement Server"
-            :description "nil"
-            :category "TCS"
-            :deadline 1572566512000
-            :created_at 1572566412000
-            :estimate 100
-            :updated_at (-> (clj-time.core/now) c/to-long)}}}
+         {:result
+          (nth tmp-task-list 0)}}
         {:status 401})))})
 
 (def delete-task
@@ -149,34 +170,12 @@
                     {:status 404})
                   {:status 401})))})
 
-(def tmp-task-list
-  {1 {:name "Implement Server"
-      :deadline 1573493099290
-      :estimate 40
-      :created_at 1572566411400}
-   2 {:name "Implement WebPush"
-      :deadline 1572567452000
-      :estimate 80
-      :created_at 1572566431400
-      :finished_at 1572567432000
-      :category "server"}
-   3 {:name "Implement Authorization"
-      :deadline 1572566451400
-      :estimate 60
-      :created_at 1572566441400
-      :category "server"}
-   4 {:name "Re: check database structure"
-      :deadline 1572566952000
-      :estimate 100
-      :created_at 1572566411500
-      :finished_at 1572567431000}})
-
 (def get-list-task
   {:summary "get a task"
    :description "for debug id and user-id \"1\" authorization \"gXqi4mnXg8KyuSKS5XlK\""
    :swagger {:security [{:ApiKeyAuth []}]}
    :parameters {:path ::path-params
-                :query ::get-task-list-params}
+                :query {:all ::all}}
    :responses {200 {:body {:result ::get-task-list-response}}}
    :handler
    (fn [{:keys [parameters headers path-params]}]
@@ -184,10 +183,15 @@
            user-id (-> path-params :user-id Integer/parseInt)
            {{:keys [all]} :body} parameters]
        (if (and (= user-id 1) (= authorization "gXqi4mnXg8KyuSKS5XlK"))
-         {:status 200
-          :body
-          {:result
-           tmp-task-list}}
+         (if all
+          {:status 200
+            :body
+            {:result
+             tmp-task-list}}
+          {:status 200
+           :body
+           {:result
+            (doall (filter #(get  % :finished_at) tmp-task-list))}})
          {:status 401})))})
 
 (defn task-app [env]

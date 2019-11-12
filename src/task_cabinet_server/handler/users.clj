@@ -15,18 +15,18 @@
 (s/def ::user-get-response (s/keys :req-un [::name ::created_at] :opt-un [::email]))
 (s/def ::user-create-param (s/keys :req-un [::name ::password] :opt-un [::email]))
 (s/def ::user-create-response (s/keys :req-un [::name ::created_at] :opt-un [::email]))
-(s/def ::user-login-param (s/keys :req-un [::name ::password]))
+(s/def ::user-login-param (s/keys :req-un [::email ::password]))
 
 (def login
   {:summary "login"
-   :description "for debug name \"Debug User\"password \"testPass10\""
+   :description "for debug email \"debug@d.gmail.com\"password \"testPass10\""
    :parameters {:body ::user-login-param}
    :responses {200 {:body {:result
                            {:token string? :id int?}
                            }}}
    :handler
-   (fn [{{{:keys [name password]} :body} :parameters}]
-     (if (and (= name "Debug User") (= password "testPass10"))
+   (fn [{{{:keys [email password]} :body} :parameters}]
+     (if (and (= email "debug@d.gmail.com") (= password "testPass10"))
        {:status 200
         :body
         {:result
